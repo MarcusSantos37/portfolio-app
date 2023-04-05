@@ -129,14 +129,17 @@ async function fetchCMSData() {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const CMSData = await fetchCMSData();
+  const { experiences, contacts, technologies, user } = await fetchCMSData();
   const { data: repos } = await axios.get(
     "https://api.github.com/users/MarcusSantos37/starred"
   );
 
   return {
     props: {
-      CMSData,
+      experiences,
+      contacts,
+      technologies,
+      user,
       repos,
     },
   };

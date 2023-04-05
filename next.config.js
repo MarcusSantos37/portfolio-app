@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ["portfolio-production-9e97.up.railway.app"],
   },
+  env: {
+    CMS_URL: "https://portfolio-production-9e97.up.railway.app",
+  },
 };
 
 module.exports = nextConfig;
