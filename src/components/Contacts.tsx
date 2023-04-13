@@ -1,5 +1,6 @@
 import { ContactsData } from "@/types";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface ContactsProps {
   contacts: ContactsData[];
@@ -7,7 +8,7 @@ interface ContactsProps {
 
 export function Contacts({ contacts }: ContactsProps) {
   return (
-    <div>
+    <section id="contacts">
       <header className="space-y-2 my-12">
         <h1 className="text-black/90 dark:text-white/90 text-4xl font-semibold">
           Contact
@@ -16,13 +17,18 @@ export function Contacts({ contacts }: ContactsProps) {
       </header>
       <div className="grid gap-4 md:grid-cols-2">
         {contacts.map((item) => (
-          <a
+          <motion.a
             key={item.id}
             href={item.attributes.link}
             target={
               item.attributes.link.includes("mailto") ? "_parent" : "_blank"
             }
             className="card-base rounded-md overflow-x-hidden transition-colors p-4 cursor-pointer items-center flex space-x-4 justify-between"
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.1)",
+              transition: { duration: 0.2, ease: "easeOut" },
+            }}
           >
             <div className="overflow-x-hidden leading-relaxed space-y-2">
               <h2 className="font-medium text-black dark:text-white truncate">
@@ -43,9 +49,9 @@ export function Contacts({ contacts }: ContactsProps) {
                 alt="social logo"
               />
             </div>
-          </a>
+          </motion.a>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

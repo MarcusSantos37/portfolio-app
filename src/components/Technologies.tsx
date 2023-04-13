@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { TechnologiesData } from "@/types";
+import { motion } from "framer-motion";
 
 interface TechnologiesProps {
   technologies: TechnologiesData[];
@@ -7,7 +8,7 @@ interface TechnologiesProps {
 
 export function Technologies({ technologies }: TechnologiesProps) {
   return (
-    <section>
+    <section id="technologies">
       <h3 className="text-sm text-black/70 dark:text-white/50 font-medium uppercase">
         Technologies I use
       </h3>
@@ -17,10 +18,16 @@ export function Technologies({ technologies }: TechnologiesProps) {
             Development
           </h5>
           <div className="grid md:grid-cols-3 grid-cols-1 lg:grid-cols-4 gap-x-2 gap-y-2">
-            {technologies[0].attributes?.dev.data.map((item) => (
-              <div
+            {technologies[0].attributes?.dev.data.map((item, index) => (
+              <motion.div
                 key={item.attributes.name}
                 className="card-base rounded-lg flex items-center space-x-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: index * 0.2 },
+                }}
               >
                 <div className="rounded-lg flex">
                   <Image
@@ -34,7 +41,7 @@ export function Technologies({ technologies }: TechnologiesProps) {
                 <span className="flex-1 truncate text-sm">
                   {item.attributes.name}
                 </span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -43,10 +50,16 @@ export function Technologies({ technologies }: TechnologiesProps) {
             Apps
           </h5>
           <div className="grid md:grid-cols-3 grid-cols-1 lg:grid-cols-4 gap-x-2 gap-y-2">
-            {technologies[0].attributes?.apps.data.map((item) => (
-              <div
+            {technologies[0].attributes?.apps.data.map((item, index) => (
+              <motion.div
                 key={item.attributes.name}
                 className="card-base rounded-lg flex items-center space-x-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: index * 0.3 },
+                }}
               >
                 <div className="rounded-lg flex">
                   <Image
@@ -60,7 +73,7 @@ export function Technologies({ technologies }: TechnologiesProps) {
                 <span className="flex-1 truncate text-sm">
                   {item.attributes.name}
                 </span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -69,10 +82,16 @@ export function Technologies({ technologies }: TechnologiesProps) {
             Services
           </h5>
           <div className="grid md:grid-cols-3 grid-cols-1 lg:grid-cols-4 gap-x-2 gap-y-2">
-            {technologies[0].attributes?.services.data.map((item) => (
-              <div
+            {technologies[0].attributes?.services.data.map((item, index) => (
+              <motion.div
                 key={item.attributes.name}
                 className="card-base rounded-lg flex items-center space-x-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: index * 0.4 },
+                }}
               >
                 <div className="rounded-lg flex">
                   <Image
@@ -86,7 +105,7 @@ export function Technologies({ technologies }: TechnologiesProps) {
                 <span className="flex-1 truncate text-sm">
                   {item.attributes.name}
                 </span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>

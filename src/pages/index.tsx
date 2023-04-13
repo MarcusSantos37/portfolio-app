@@ -5,15 +5,20 @@ import {
   ProfileData,
   TechnologiesData,
 } from "@/types";
+import { animated, useSpring } from "react-spring";
 
+import { AiOutlineArrowDown } from "react-icons/ai";
 import { Contacts } from "@/components/Contacts";
 import { Experiences } from "@/components/Experience";
+import { Fade } from "react-reveal";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { Repositories } from "@/components/Repositories";
 import { Technologies } from "@/components/Technologies";
 import axios from "axios";
+import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 
 interface HomeProps {
@@ -33,19 +38,48 @@ export default function Home({
 }: HomeProps) {
   const { theme, setTheme } = useTheme();
 
+  const props = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 0.2 });
+
   return (
     <>
       <Head>
         <title>Marcus Augusto - Portfólio</title>
       </Head>
-      <div className="min-h-screen bg-gray-50 dark:bg-neutral-900">
+      <div className="relative min-h-screen bg-gray-50 dark:bg-neutral-900">
         <nav className="w-full pt-10">
           <div className="container mx-auto w-11/12 relative sm:w-9/12 md:w-7/12">
             <div className="flex items-center gap-6 justify-between">
-              <a className="flex-shrink-0 h-10 w-10 flex items-center space-x-4">
-                {/* Home */}
-              </a>
-              <div className="flex space-x-2 items-center">
+              <ol className="hidden sm:flex flex-row gap-8">
+                <Link
+                  className="hover:scale-105 transition-all"
+                  href="#technologies"
+                  scroll={false}
+                >
+                  Technologies
+                </Link>
+                <Link
+                  className="hover:scale-105 transition-all"
+                  href="#repositories"
+                  scroll={false}
+                >
+                  Repositories
+                </Link>
+                <Link
+                  className="hover:scale-105 transition-all"
+                  href="#experiences"
+                  scroll={false}
+                >
+                  Experiences
+                </Link>
+                <Link
+                  className="hover:scale-105 transition-all"
+                  href="#contacts"
+                  scroll={false}
+                >
+                  Contacts
+                </Link>
+              </ol>
+              <div className="flex space-x-2 w-full justify-end items-center">
                 <a
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                   className="cursor-pointer justify-center px-5 py-2 rounded-lg card-base flex items-center space-x-2 w-max"
@@ -59,11 +93,8 @@ export default function Home({
         <div className="space-y-24 mb-10 container mx-auto min-h-screen pb-8 w-11/12 sm:pb-10 sm:w-9/12 md:w-7/12">
           <header className="rounded-md flex flex-col-reverse my-16 py-10 md:flex-row md:items-center md:justify-between justify-center">
             <div className="md:w-8/12">
-              <div className="space-y-6">
-                <div className="flex items-center space-x-2 rounded-md text-neutral-500 mt-4 justify-center md:justify-start">
-                  {/* <div className="h-5 w-5 rounded-full flex-shrink-0 bg-gray-500 dark:bg-gray-200" />
-                <div className="text-sm leading-tight truncate">Offline</div> */}
-                </div>
+              <animated.div style={props} className="space-y-6">
+                <div className="flex items-center space-x-2 rounded-md text-neutral-500 mt-4 justify-center md:justify-start"></div>
                 <h3 className="text-2xl font-normal md:text-start text-center">
                   {user.attributes.name}
                 </h3>
@@ -73,18 +104,7 @@ export default function Home({
                 <h3 className="text-base font-light md:text-start text-center">
                   {user.attributes.email}
                 </h3>
-                {/* <div className="flex items-center justify-center md:justify-start gap-x-3 gap-y-2 flex-wrap">
-                <a className="cursor-pointer justify-center px-5 py-2 rounded-lg card-base flex items-center space-x-2 inline-block w-max"></a>
-                <a className="cursor-pointer justify-center px-5 py-2 rounded-lg card-base flex items-center space-x-2 inline-block w-max"></a>
-                <a className="cursor-pointer justify-center px-5 py-2 rounded-lg card-base flex items-center space-x-2 inline-block w-max"></a>
-                <Link
-                  href="/#technologies"
-                  className="cursor-pointer justify-center px-5 py-2 rounded-lg card-base flex items-center space-x-2 w-max"
-                >
-                  ...
-                </Link>
-              </div> */}
-              </div>
+              </animated.div>
             </div>
             <Image
               className="w-[150px] h-[150px] rounded-full object-cover mx-auto"
@@ -94,10 +114,18 @@ export default function Home({
               alt="profile image"
             />
           </header>
-          <Technologies technologies={technologies} />
-          <Repositories repos={repos} />
-          <Experiences experiences={experiences} />
-          <Contacts contacts={contacts} />
+          <Fade>
+            <Technologies technologies={technologies} />
+          </Fade>
+          <Fade bottom>
+            <Repositories repos={repos} />
+          </Fade>
+          <Fade bottom>
+            <Experiences experiences={experiences} />
+          </Fade>
+          <Fade bottom>
+            <Contacts contacts={contacts} />
+          </Fade>
         </div>
       </div>
     </>

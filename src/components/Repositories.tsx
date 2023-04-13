@@ -2,9 +2,11 @@ interface RepositoriesProps {
   repos: any;
 }
 
+import { motion } from "framer-motion";
+
 export function Repositories({ repos }: RepositoriesProps) {
   return (
-    <div>
+    <section id="repositories">
       <header className="space-y-2 my-12">
         <h1 className="text-black/90 dark:text-white/90 text-4xl font-semibold">
           Repositories
@@ -14,7 +16,14 @@ export function Repositories({ repos }: RepositoriesProps) {
       <div className="grid gap-4 md:grid-cols-2">
         {repos.map((item: any) => (
           <a href={item.clone_url} target="_blank" key={item.id}>
-            <div className="rounded-lg card-base h-full">
+            <motion.div
+              className="rounded-lg card-base h-full"
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.1)",
+                transition: { duration: 0.2, ease: "easeOut" },
+              }}
+            >
               <div className="space-y-2">
                 <div className="flex justify-between space-x-2">
                   <h3 className="text-black/90 dark:text-white/90 items-center truncate space-x-1">
@@ -33,9 +42,7 @@ export function Repositories({ repos }: RepositoriesProps) {
                 <div className="flex items-center justify-between text-black/50 dark:text-white/30">
                   <span>Language:</span>
                   {item.language}
-                  {/* <svg className="h-5 w-5"></svg> */}
                 </div>
-
                 <div
                   v-if="license"
                   className="flex items-center justify-between text-black/50 dark:text-white/30"
@@ -44,10 +51,10 @@ export function Repositories({ repos }: RepositoriesProps) {
                   <span>{item.license?.spdx_id}</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </a>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
